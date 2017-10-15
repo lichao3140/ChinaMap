@@ -7,37 +7,30 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
+import android.graphics.Region;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.Handler;
-import android.os.Message;
-import android.support.annotation.Nullable;
 import android.support.v4.view.GestureDetectorCompat;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
 /**
- * SVG绘制中国地图
- * Created by Administrator on 2017-10-14.
+ * Description:  mapview
+ *
+ * @author nemo
+ * @version 2.0
+ * @since 16/4/12
  */
-
 public class MapView extends View {
+
     private static final String TAG = "ChinaMapView";
 
     private Paint paint;
@@ -333,5 +326,144 @@ public class MapView extends View {
 
         }
     }
-}
 
+    /**
+     * 地图绘制省份区域信息
+     */
+    private static class ProvinceItem {
+        /**
+         * 区域路径
+         */
+        private Path path;
+
+        /**
+         * 区域背景色，默认白色
+         */
+        private int drawColor = Color.WHITE;
+
+        /**
+         * 区域省份名称
+         */
+        private String provinceName;
+
+        /**
+         * 区域省份编码
+         */
+        private int provinceCode;
+
+        /**
+         * 区域省份人数
+         */
+        private int personNumber;
+
+        /**
+         * 区域绘制方法
+         *
+         * @param canvas     画布
+         * @param paint      画笔
+         * @param isSelected 是否选中
+         */
+        void drawItem(Canvas canvas, Paint paint, boolean isSelected) {
+
+            //选中时绘制阴影描边效果
+            if (isSelected) {
+                paint.setStrokeWidth(2);
+                paint.setColor(Color.BLACK);
+                paint.setStyle(Paint.Style.FILL);
+                paint.setShadowLayer(8, 0, 0, 0xFFFFFFFF);
+                canvas.drawPath(path, paint);
+
+                paint.clearShadowLayer();
+                paint.setColor(drawColor);
+                paint.setStyle(Paint.Style.FILL);
+                paint.setStrokeWidth(2);
+                canvas.drawPath(path, paint);
+
+            } else {
+                //非选中时，绘制描边效果
+                paint.clearShadowLayer();
+                paint.setStrokeWidth(1);
+                paint.setStyle(Paint.Style.FILL);
+                paint.setColor(drawColor);
+                canvas.drawPath(path, paint);
+
+                paint.setStyle(Paint.Style.STROKE);
+                int strokeColor = 0xFFD0E8F4;
+                paint.setColor(strokeColor);
+                canvas.drawPath(path, paint);
+            }
+        }
+
+        /**
+         * 判断该区域是否处于touch状态
+         *
+         * @param x 当前x
+         * @param y 当前y
+         * @return 是否处于touch状态
+         */
+        boolean isTouched(int x, int y) {
+            RectF r = new RectF();
+            path.computeBounds(r, true);
+
+            Region region = new Region();
+            region.setPath(path, new Region((int) r.left, (int) r.top, (int) r.right, (int) r.bottom));
+            return region.contains(x, y);
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            ProvinceItem item = (ProvinceItem) o;
+
+            return provinceCode == item.provinceCode;
+
+        }
+
+        @Override
+        public int hashCode() {
+            return provinceCode;
+        }
+
+        public Path getPath() {
+            return path;
+        }
+
+        void setPath(Path path) {
+            this.path = path;
+        }
+
+        public int getDrawColor() {
+            return drawColor;
+        }
+
+        void setDrawColor(int drawColor) {
+            this.drawColor = drawColor;
+        }
+
+        String getProvinceName() {
+            return provinceName;
+        }
+
+        void setProvinceName(String provinceName) {
+            this.provinceName = provinceName;
+        }
+
+        int getProvinceCode() {
+            return provinceCode;
+        }
+
+        void setProvinceCode(int provinceCode) {
+            this.provinceCode = provinceCode;
+        }
+
+        int getPersonNumber() {
+            return personNumber;
+        }
+
+        void setPersonNumber(int personNumber) {
+            this.personNumber = personNumber;
+        }
+    }
+}

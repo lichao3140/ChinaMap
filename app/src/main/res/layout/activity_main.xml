@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="15dp"
-    tools:context="com.lqh.lichao.chinamap.MapActivity">
+    tools:context="com.lqh.lichao.chinamap.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -54,7 +54,7 @@ public class MapSVGManager {
      *
      * @param callback 封装完成回掉
      */
-    void getProvincePathListAsync(final Callback callback) {
+    public void getProvincePathListAsync(final Callback callback) {
         if (mProvincePathList == null) {
             new Thread(() -> {
                 try {
@@ -134,7 +134,7 @@ public class MapSVGManager {
         }).start();
     }
 
-    interface Callback {
+    public interface Callback {
 
         void onResult(List<ProvincePath> provincePathList, RectF size);
 
