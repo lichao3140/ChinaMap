@@ -16,9 +16,14 @@ import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
+/**
+ * SVG绘制地图
+ * Created by Administrator on 2017-10-14.
+ */
 public class MainActivity extends AppCompatActivity {
 
     private MapView mapView;
+    private HVScaleScrollView scaleScrollView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mapView = (MapView) findViewById(R.id.view_map);
+        scaleScrollView = (HVScaleScrollView) findViewById(R.id.scrollView);
+
+
     }
 
     /**

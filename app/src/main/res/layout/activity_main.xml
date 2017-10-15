@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/ic_china_bg"
     android:orientation="vertical"
-    android:padding="15dp"
     tools:context="com.lqh.lichao.chinamap.MainActivity">
 
     <LinearLayout
@@ -19,7 +19,7 @@
             android:layout_marginRight="30dp"
             android:layout_weight="1"
             android:onClick="loadMapData"
-            android:text="加载演示数据" />
+            android:text="人口数据" />
 
         <Button
             android:id="@+id/bt_clear_data"
@@ -27,14 +27,27 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="clearMapData"
-            android:text="清除演示数据" />
+            android:text="清除数据" />
     </LinearLayout>
 
 
-    <com.lqh.lichao.chinamap.MapView
-        android:id="@+id/view_map"
+    <com.lqh.lichao.chinamap.HVScaleScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp" />
+        android:layout_height="match_parent"
+        android:layout_gravity="center" >
+        
+        <RelativeLayout
+            android:id="@+id/rl_map"
+            android:layout_width="3000px"
+            android:layout_height="3000px">
+
+            <com.lqh.lichao.chinamap.MapView
+                android:id="@+id/view_map"
+                android:layout_width="1450px"
+                android:layout_height="1200px"
+                android:layout_centerInParent="true" />
+        </RelativeLayout>
+    </com.lqh.lichao.chinamap.HVScaleScrollView>
 
 </LinearLayout>

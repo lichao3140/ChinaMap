@@ -4,6 +4,7 @@ import android.graphics.Path;
 
 /**
  * Description:  省份绘制信息封装
+ * Created by Administrator on 2017-10-14.
  */
 
 public class ProvincePath {

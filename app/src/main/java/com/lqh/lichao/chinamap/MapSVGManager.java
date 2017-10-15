@@ -13,7 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Description:  svg管理
+ * Description:  SVG管理
+ * Created by Administrator on 2017-10-14.
  */
 public class MapSVGManager {
 
@@ -139,6 +140,5 @@ public class MapSVGManager {
         void onResult(List<ProvincePath> provincePathList, RectF size);
 
     }
-
 
 }
